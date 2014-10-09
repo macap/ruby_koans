@@ -31,6 +31,29 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def score(dice)
   # You need to write this method
+  numbers = Hash.new(0)
+  dice.select do |number|
+    numbers[number]+=1
+  end
+
+  result =0
+
+  numbers.select do |key, value|
+    while value >0
+      if value %3 ==0
+        result=(result+900) if key==1
+        result += key*100
+        value-=3
+      else
+        result=(result+100) if key==1
+        result=(result+50) if key==5
+        value-=1
+      end
+    end
+  end
+
+  result
+
 end
 
 class AboutScoringProject < Neo::Koan
